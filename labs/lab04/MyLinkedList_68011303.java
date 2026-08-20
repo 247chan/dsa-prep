@@ -76,14 +76,14 @@ public class MyLinkedList_68011303 {
         ListNode dummy = new ListNode(-1);
         dummy.next = head;
 
-        ListNode prev = dummy;
+        ListNode curr = dummy;
         for (int p = 0; p < i; p++) {
-            prev = prev.next;
+            curr = curr.next;
         }
 
         ListNode n = new ListNode(d);
-        n.next = prev.next;
-        prev.next = n;
+        n.next =  curr.next;
+        curr.next = n;
 
         head = dummy.next;
         _size++;
@@ -92,13 +92,13 @@ public class MyLinkedList_68011303 {
         ListNode dummie = new ListNode(-1);
         dummie.next = head;
         
-        ListNode prev = dummie;
-        while (prev.next != null && prev.next.val < d) {
-            prev = prev.next;
+        ListNode curr = dummie;
+        while (curr.next != null && curr.next.val < d) {
+            curr = curr.next;
         }
         ListNode n = new ListNode(d);
-        n.next = prev.next;
-        prev.next = n;
+        n.next = curr.next;
+        curr.next = n;
 
         head = dummie.next;
         _size++;
@@ -107,7 +107,7 @@ public class MyLinkedList_68011303 {
         ListNode n = head;
         int index = 0;
 
-        while(n.next != null){
+        while(n != null){
             if(n.val == d) return index;
             n = n.next;
             index++;
@@ -169,6 +169,7 @@ public class MyLinkedList_68011303 {
         a.addLast(30);
         expect("addLast", a.toString(), "head->(10)->(20)->(30)->null");
         expect("addLast size", a.size(), 3);
+
 
         a.add(0, 5);
         expect("add index 0", a.toString(), "head->(5)->(10)->(20)->(30)->null");
