@@ -1,5 +1,7 @@
 package challenges.bfs;
 
+// Question
+// Implement basic grid bfs that goes through every element in the grid
 import java.util.*;
 
 public class Gridbfs {

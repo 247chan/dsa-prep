@@ -1,5 +1,8 @@
 package challenges.bfs;
 
+// Question
+// Count the numbers of islands using bfs
+// 1 is land, 0 is water
 import java.util.*;
 
 public class NumberOfIslands {

@@ -1,5 +1,10 @@
 package challenges.linkedlist;
 
+// Question
+// Remove the nth node from the end
+// input: 1 2 3 4 5 6 7
+// remove 3rd node from the end
+// output: 1 2 3 4 6 7
 public class RemoveNthNode {
     public static Node removeNthNodeFromEnd(Node head, int n){
         Node dummy = new Node(0);
