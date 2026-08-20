@@ -14,6 +14,8 @@ public class ShuntingYard {
 
     public static int op_order(String op){
         switch (op) {
+            case "^":
+                return 3;
             case "*", "/":
                 return 2;
 
@@ -24,6 +26,10 @@ public class ShuntingYard {
                 return 0;
         }
         
+    }
+
+    public static boolean rightAssociative(String op){
+        return op.equals("^");
     }
 
     public static String infixToPostfix(String s){
@@ -49,8 +55,15 @@ public class ShuntingYard {
                     throw new IllegalArgumentException("Mismatched parentheses");
                 }
             } else {
-                while(!stack.isEmpty() && op_order(stack.peek()) >= op_order(t)){
-                    queue.add(stack.pop());
+                while(!stack.isEmpty() && !stack.peek().equals("(")){
+                    
+                    if((!rightAssociative(t) && op_order(stack.peek()) >= op_order(t)) || 
+                    (rightAssociative(t) && op_order(stack.peek()) > op_order(t)))
+                    {
+                        queue.add(stack.pop());
+                    } else {
+                        break;
+                    }
                 }
                 stack.push(t);
             }  
@@ -75,5 +88,6 @@ public class ShuntingYard {
         System.out.println(infixToPostfix("3 + 4 * 2"));         // 3 4 2 * +
         System.out.println(infixToPostfix("( 3 + 4 ) * 2"));       // 3 4 + 2 *
         System.out.println(infixToPostfix("10 + 2 * 6 - 3"));    // 10 2 6 * + 3 -
+        System.out.println(infixToPostfix("3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3"));    // 3 4 2 * 1 5 - 2 3 ^ ^ / +
     }
 }
