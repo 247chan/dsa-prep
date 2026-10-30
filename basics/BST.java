@@ -216,9 +216,9 @@ public class BST {
                 return node.left;
             }
 
-            Node leftOldest = findMax(node.left);
-            node.val = leftOldest.val;
-            node.left = delete(node.left, leftOldest.val);
+            Node leftGreatest = findMax(node.left);
+            node.val = leftGreatest.val;
+            node.left = delete(node.left, leftGreatest.val);
         }
 
         return node;
