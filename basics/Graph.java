@@ -232,4 +232,93 @@ public class Graph {
         return dist;
     }
 
+    static class UnionFind {
+        int[] parent;
+        int[] size;
+
+        // Constructor
+        // if n = 4 -> parent is [0, 1, 2, 3], size is [1,1,1,1]
+        UnionFind(int n) {
+            parent = new int[n];
+            size = new int[n];
+            for (int i = 0; i < n; i++) {
+                // parent[i] is the v that i points to
+                // here i points itself -> root (leader) of its group
+                parent[i] = i;
+                size[i] = 1; // no. of v in the group, now each gp has size 1;
+            }
+        }
+
+        // who is the leader of x's group
+        int find(int x) {
+            // if parent[x] == x -> x is a root, skip it
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]); // path compression
+            }
+            return parent[x];
+        }
+
+        // merge two groups of a & b
+        boolean union(int a, int b) {
+            // first find two leaders of a & b
+            int rootA = find(a);
+            int rootB = find(b);
+
+            if (rootA == rootB) {
+                // rootA == rootB means they are in the same group
+                // no need union -> false
+                // Kruskal will read this as "adding this edge will make a cycle"
+                return false;
+            }
+
+            // if A's group is smaller
+            // 1. hang A's root under B's root
+            // 2. add A's size to B's size
+            if (size[rootA] < size[rootB]) {
+                parent[rootA] = rootB;
+                size[rootB] += size[rootA];
+            } else {
+                // vice versa
+                parent[rootB] = rootA;
+                size[rootA] += size[rootB];
+            }
+
+            return true;
+        }
+    }
+
+    // Kruskal's Algorithm
+    // n is number of vertices
+    // edge[][] is the edge list
+    // does not need adajency list ****
+    static int kruskal(int n, int[][] edges) {
+        // we don't want to touch the original one so clone it!
+        int[][] sorted = edges.clone();
+
+        // we need sorted edges by weight
+        // each edge is {u, v, w} so we compare by [2]
+        Arrays.sort(sorted, (a, b) -> Integer.compare(a[2], b[2]));
+
+        UnionFind uf = new UnionFind(n);
+
+        int totalWeight = 0; // running weight of the tree
+        int used = 0; // edges taken
+
+        // each e is {u, v, w}
+        for (int[] e : sorted) {
+            int a = e[0];
+            int b = e[1];
+            int w = e[2];
+
+            if (uf.union(a, b)) {
+                totalWeight += w;
+                // when "used" reaches n-1, it means tree is complete so break the program
+                if (++used == n - 1)
+                    break;
+            }
+        }
+
+        return used == n - 1 ? totalWeight : -1;
+    }
+
 }
