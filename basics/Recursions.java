@@ -89,4 +89,67 @@ public class Recursions {
         }
     }
 
+    // =============== DIVIDE & CONQUER ===================
+    static int findMax(int[] a, int l, int r) {
+        // l == r means only one element
+        if (l == r)
+            return a[l];
+
+        int mid = (l + r) / 2;
+        return Math.max(findMax(a, l, mid), findMax(a, mid + 1, r));
+
+    }
+
+    static int maxCrossing(int[] a, int l, int mid, int r) {
+        int leftSum = Integer.MIN_VALUE;
+        int lSum = 0;
+
+        for (int i = mid; i >= l; i--) {
+            lSum += a[i];
+            leftSum = Math.max(leftSum, lSum);
+        }
+
+        int rightSum = Integer.MIN_VALUE;
+        int rSum = 0;
+
+        for (int i = mid + 1; i < r; i++) {
+            rSum += a[i];
+            rightSum = Math.max(rightSum, rSum);
+        }
+
+        return leftSum + rightSum;
+    }
+
+    // This method costs O(n log n)
+    // faster way is kadane (below)
+    static int maxSubarrayDC(int[] a, int l, int r) {
+        if (l == r)
+            return a[l];
+
+        int mid = (l + r) / 2;
+
+        int leftBest = maxSubarrayDC(a, l, mid);
+        int rightBest = maxSubarrayDC(a, mid + 1, r);
+        int crossBest = maxCrossing(a, l, mid, r);
+
+        return Math.max(Math.max(leftBest, rightBest), crossBest);
+    }
+
+    // Instead of "what is the best array in the whole array",
+    // try asking "what is the best subarray that ends exactly at index i"
+
+    // Time - O(n)
+    // Space - O(1)
+    static int kadane(int[] a) {
+        int cur = a[0]; // best sum of subarray ending at cur i
+        int best = a[0]; // best seen so far
+
+        for (int i = 0; i < a.length; i++) {
+            cur = Math.max(cur + a[i], a[i]);
+            best = Math.max(best, cur);
+        }
+
+        return best;
+    }
+
 }
