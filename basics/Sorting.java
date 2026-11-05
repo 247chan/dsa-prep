@@ -67,7 +67,7 @@ public class Sorting {
 
     static void shellSort(int[] a) { // insertion sort with shrinking gap
         int n = a.length;
-        for (int gap = n / 2; gap >= 1; gap = gap / 2) {
+        for (int gap = n / 2; gap > 0; gap = gap / 2) {
             for (int i = gap; i < n; i++) {
                 int key = a[i];
                 int j = i;
