@@ -53,7 +53,7 @@ public class Recursions {
             return;
         hanoi(n - 1, from, via, to, moves);
         moves.add(from + "->" + to);
-        hanoi(n - 1, via, via, to, moves);
+        hanoi(n - 1, via, to, from, moves);
     }
 
     // choose(add) -- explore(recurse) -- unchoose(remove)
