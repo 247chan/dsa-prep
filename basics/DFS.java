@@ -40,7 +40,7 @@ public class DFS {
         return order;
     }
 
-    // count how many separate pieces
+    // count the number of connected components
     static int countComponents(List<List<Integer>> g) {
         boolean[] seen = new boolean[g.size()];
         int c = 0;
@@ -94,7 +94,7 @@ public class DFS {
     }
 
     // CYCLE in a DIRECTED graph
-    // 0: unvisted, 1: on current path, 2: finished
+    // 0: unvisited, 1: on current path, 2: finished
     static boolean hasCycleDirected(List<List<Integer>> g) {
         int[] st = new int[g.size()];
         for (int v = 0; v < g.size(); v++) {
