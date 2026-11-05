@@ -2,7 +2,7 @@ package basics;
 
 import java.util.*;
 
-// ---------- array-based MIN heap (lecture layout: root at 0, parent=(i-1)/2, children 2i+1, 2i+2) ----------
+// ---------- array-based MIN heap ----------
 // root: 0
 // current: i
 // left child: 2i+1
@@ -24,6 +24,7 @@ public class MinHeap {
         return heap[0];
     }
 
+    // a & b are indexes
     void swap(int a, int b) {
         int t = heap[a];
         heap[a] = heap[b];
