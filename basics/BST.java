@@ -241,28 +241,8 @@ public class BST {
         if (n.val < low || n.val > high)
             return false;
 
-        return isValidBST(n.left, low, (long) n.val - 1) && isValidBST(n.right, n.val, high);
+        return isValidBST(n.left, low, n.val) && isValidBST(n.right, n.val, high);
     }
-
-    // k-th Smallest
-    // int kthSmallest(int k) {
-    // int[] count = { 0 };
-    // int[] ans = { -1 };
-    // kth(root, k, count, ans);
-    // return ans[0];
-    // }
-
-    // private void kth(Node n, int k, int[] count, int[] ans) {
-    // if (n == null || ans[0] != -1)
-    // return;
-
-    // kth(n.left, k, count, ans);
-    // if (++count[0] == k) {
-    // ans[0] = n.val;
-    // return;
-    // }
-    // kth(n.right, k, count, ans);
-    // }
 
     int kthSmallest(int k) { // 1-based
         int[] count = { 0 };
