@@ -16,9 +16,12 @@ public class Graph {
     // graph in list
     static List<List<Integer>> buildUnweightedGraph(int n, int[][] edges, boolean directed) {
         List<List<Integer>> g = new ArrayList<>();
+
+        // fill graph [ [], [], [], ...]
         for (int i = 0; i < n; i++) {
             g.add(new ArrayList<>());
         }
+
         for (int[] e : edges) {
             g.get(e[0]).add(e[1]);
             if (!directed)
@@ -29,9 +32,12 @@ public class Graph {
 
     static List<List<int[]>> buildWeightedGraph(int n, int[][] edges, boolean directed) {
         List<List<int[]>> g = new ArrayList<>();
+
+        // fill graph [ [], [], [], ...]
         for (int i = 0; i < n; i++) {
             g.add(new ArrayList<>());
         }
+
         for (int[] e : edges) {
             g.get(e[0]).add(new int[] { e[1], e[2] });
             if (!directed) {
@@ -46,15 +52,15 @@ public class Graph {
     }
 
     static int inDegree(List<List<Integer>> g, int v) {
-        int c = 0;
+        int count = 0;
         for (List<Integer> nb : g) {
             for (int w : nb) {
                 if (w == v) {
-                    c++;
+                    count++;
                 }
             }
         }
-        return c;
+        return count;
     }
 
     static boolean hasEdge(List<List<Integer>> g, int u, int v) {
